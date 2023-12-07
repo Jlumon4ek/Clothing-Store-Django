@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from products.views import index
+from products.views import *
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", index),
+    path("index/", index, name='index'),
+    path('products/', products, name='products'), #где мы передавали например в href = "index.html" будем передавать href="{% url 'index' %}" в .html файле?
 ]
