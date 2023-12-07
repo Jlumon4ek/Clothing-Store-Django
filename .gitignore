@@ -4,3 +4,5 @@ venv
 /app/__pycache__
 */__pycache__
 *.pytest_cache
+*/store-template-course
+**/store-template-course
