@@ -4,11 +4,17 @@ from django.db import models
 
 
 class productCategory(models.Model):
+    def __str__(self) -> str:
+        return self.name
+
     name = models.CharField(max_length=128, unique=True)
     description = models.TextField(null=True, blank=True)
 
 
 class Product(models.Model):
+    def __str__(self) -> str:
+        return f"Product: {self.name} | Category: {self.category.name}"
+
     name = models.CharField(max_length=256)
     description = models.TextField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
