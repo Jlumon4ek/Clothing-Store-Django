@@ -20,3 +20,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# Миграции - перенос моделей в базу данных
+# python manage.py makemigrations - создает миграции
+# python manage.py migrate - применяет миграции
