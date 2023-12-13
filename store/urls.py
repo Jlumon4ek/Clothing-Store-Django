@@ -27,6 +27,7 @@ urlpatterns = [
     path("", index, name='index'),
     # где мы передавали например в href = "index.html" будем передавать href="{% url 'index' %}" в .html файле?
     path('products/', include('products.urls', namespace='products')),
+    path('users/', include('users.urls', namespace='users')),
 ]
 
 if settings.DEBUG:
