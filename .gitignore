@@ -6,3 +6,4 @@ venv
 *.pytest_cache
 */store-template-course
 **/store-template-course
+.idea

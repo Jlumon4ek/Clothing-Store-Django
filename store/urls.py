@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from products.views import *
 
 from django.conf.urls.static import static
@@ -26,7 +26,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", index, name='index'),
     # где мы передавали например в href = "index.html" будем передавать href="{% url 'index' %}" в .html файле?
-    path('products/', products, name='products'),
+    path('products/', include('products.urls', namespace='products')),
 ]
 
 if settings.DEBUG:
