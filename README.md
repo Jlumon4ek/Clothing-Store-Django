@@ -1,3 +1,2 @@
 # Clothing-Store-Django
 
-Hello
