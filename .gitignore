@@ -7,3 +7,6 @@ venv
 */store-template-course
 **/store-template-course
 .idea
+.store-template-course-master
+.media/users_img
+*/users_img
