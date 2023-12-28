@@ -1,8 +1,11 @@
-from django.shortcuts import render, HttpResponse
-from products.models import Product, productCategory
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect
+from products.models import Product, productCategory, Basket
+from users.models import Users
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
-# контролер - функция, которая принимает запрос и возвращает ответ или называют view или вьюха
+# контролер - функция, которая принимает запрос и возвращает ответ или называют view, или вьюха
 
 
 def index(request):
@@ -22,4 +25,26 @@ def products(request):
     }
     return render(request, "products/products.html", context)
 
-# {% шаблонный тег%}  {% переменная %}
+
+# {% шаблонный тег%} {% переменная %}
+@login_required
+def basket_add(request, product_id):
+    product = Product.objects.get(id=product_id)
+    baskets = Basket.objects.filter(user=request.user, products=product)
+
+    if not baskets.exists():
+        Basket.objects.create(user=request.user, products=product, quantity=1)
+    else:
+        basket = baskets.first()
+        basket.quantity += 1
+        basket.save()
+
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+@login_required
+def basket_remove(request, product_id):
+    basket = Basket.objects.get(id=product_id)
+    basket.delete()
+
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
