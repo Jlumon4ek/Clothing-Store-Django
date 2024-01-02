@@ -1,11 +1,21 @@
 from django.db import models
 from users.models import Users
 
+# Есть 3 популярных вида удаления: CASCADE, PROTECT, SET_DEFAULT.
+# При CASCADE при удалении категории, удалятся все продукты в этой категории.
+# При PROTECT при удалении категории, будет ошибка, нельзя будет удалить категорию, пока в ней есть продукты.
+# При SET_DEFAULT при удалении категории, у всех продуктов в этой категории, будет установлена категория по умолчанию.
 
 # models = таблицы в базе данных
+
+
 class productCategory(models.Model):
     def __str__(self) -> str:
         return self.name
+
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
 
     name = models.CharField(max_length=128, unique=True)
     description = models.TextField(null=True, blank=True)
@@ -20,12 +30,11 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     quantity = models.PositiveIntegerField(default=0)
     img = models.ImageField(upload_to='products_images', blank=True)
-
-    # Есть 3 популярных вида удаления: CASCADE, PROTECT, SET_DEFAULT.
-    # При CASCADE при удалении категории, удалятся все продукты в этой категории.
-    # При PROTECT при удалении категории, будет ошибка, нельзя будет удалить категорию, пока в ней есть продукты.
-    # При SET_DEFAULT при удалении категории, у всех продуктов в этой категории, будет установлена категория по умолчанию.
     category = models.ForeignKey(to=productCategory, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Product"
+        verbose_name_plural = "Products"
 
 
 class BasketQuerySet(models.QuerySet):
@@ -49,3 +58,7 @@ class Basket(models.Model):
 
     def sum(self):
         return self.quantity * self.products.price
+
+    class Meta:
+        verbose_name = "Basket"
+        verbose_name_plural = "Baskets"
