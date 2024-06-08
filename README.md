@@ -1,2 +1,0 @@
-# Clothing-Store-Django
-
